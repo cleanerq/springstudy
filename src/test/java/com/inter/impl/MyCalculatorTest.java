@@ -23,13 +23,10 @@ public class MyCalculatorTest extends TestCase {
         ClassPathXmlApplicationContext applicationContext =
                 new ClassPathXmlApplicationContext("classpath:/conf/ioc3.xml");
         Calculator bean = applicationContext.getBean(Calculator.class);
+        bean.div(1,0);
         System.out.println(bean);
         System.out.println(bean.getClass());
 
-        Calculator bean2 = (Calculator) applicationContext.getBean("myCalculator");
-
-        System.out.println(bean2);
-        System.out.println(bean2.getClass());
     }
 
 }

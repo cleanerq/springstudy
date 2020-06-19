@@ -19,10 +19,12 @@ public class MyCalculatorNoInterfaceTest extends TestCase {
     public void test01() {
         ClassPathXmlApplicationContext applicationContext =
                 new ClassPathXmlApplicationContext("classpath:/conf/ioc3.xml");
+        MyCalculatorNoInterface bean = applicationContext.getBean(MyCalculatorNoInterface.class);
+        bean.add(1, 2);
+        System.out.println(bean);
+        System.out.println(bean.getClass());
 
-
-        Calculator bean2 = (Calculator) applicationContext.getBean("myCalculator");
-
+        MyCalculatorNoInterface bean2 = (MyCalculatorNoInterface) applicationContext.getBean("myCalculatorNoInterface");
         System.out.println(bean2);
         System.out.println(bean2.getClass());
     }

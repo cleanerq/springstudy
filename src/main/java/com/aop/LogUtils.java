@@ -1,5 +1,7 @@
 package com.aop;
 
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +17,7 @@ import java.util.Arrays;
 @Aspect
 @Component
 public class LogUtils {
-    private  static Logger logger = LoggerFactory.getLogger(LogUtils.class);
+    private static Logger logger = LoggerFactory.getLogger(LogUtils.class);
 
     /**
      * 1、本类引用
@@ -26,22 +28,34 @@ public class LogUtils {
     }
 
     @Before("pointCut()")
-    public static void logStart() {
-        logger.info("【logStart】方法开始执行，用的参数列表【{}】");
+    public static void logStart(JoinPoint joinPoint) {
+        Object[] args = joinPoint.getArgs();
+        Signature signature = joinPoint.getSignature();
+        String name = signature.getName();
+        logger.info("logStart【{}】方法开始执行，用的参数列表【{}】", name, Arrays.asList(args));
     }
 
-    @AfterReturning("pointCut()")
-    public static void logReturn() {
-        logger.info("【logReturn】方法开始执行，用的参数列表【{}】");
+    @AfterReturning(value = "pointCut()", returning = "result")
+    public static void logReturn(JoinPoint joinPoint, Object result) {
+        Object[] args = joinPoint.getArgs();
+        Signature signature = joinPoint.getSignature();
+        String name = signature.getName();
+        logger.info("logReturn【{}】方法开始执行，用的参数列表【{}】, 返回结果:{}", name, Arrays.asList(args), result);
     }
 
-    @AfterThrowing("pointCut()")
-    public static void logExcpetion() {
-        logger.info("【logExcpetion】方法开始执行，用的参数列表【{}】");
+    @AfterThrowing(value = "pointCut()", throwing = "runtimeException")
+    public static void logExcpetion(JoinPoint joinPoint, RuntimeException runtimeException) {
+        Object[] args = joinPoint.getArgs();
+        Signature signature = joinPoint.getSignature();
+        String name = signature.getName();
+        logger.info("logExcpetion【{}】方法开始执行，用的参数列表【{}】，异常信息【{}】", name, Arrays.asList(args), runtimeException.toString());
     }
 
     @After("pointCut()")
-    public static void logEnd() {
-        logger.info("【logEnd】方法开始执行，用的参数列表【{}】");
+    public static void logEnd(JoinPoint joinPoint) {
+        Object[] args = joinPoint.getArgs();
+        Signature signature = joinPoint.getSignature();
+        String name = signature.getName();
+        logger.info("logEnd【{}】方法开始执行，用的参数列表【{}】", name, Arrays.asList(args));
     }
 }
