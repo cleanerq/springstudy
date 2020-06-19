@@ -98,7 +98,11 @@
             <artifactId>spring-test</artifactId>
             <version>5.2.6.RELEASE</version>
         </dependency>
-
+        <dependency>
+            <groupId>aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>1.5.4</version>
+        </dependency>
     </dependencies>
 
 </project>
