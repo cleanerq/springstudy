@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://www.springframework.org/schema/util
+          http://www.springframework.org/schema/util/spring-util-4.0.xsd ">
+    <!--正确的为各种属性赋值-->
+    <bean id="car01" class="com.bean.Car">
+        <property name="carName" value="宝马"></property>
+        <property name="color" value="绿色"></property>
+        <property name="price" value="300000"></property>
+    </bean>
+
+    <bean id="person01" class="com.bean.Person">
+        <property name="lastName" >
+            <!--进行复杂的赋值-->
+            <null></null>
+        </property>
+<!--        <property name="car" ref="car01"></property>-->
+
+        <property name="car">
+            <bean class="com.bean.Car" >
+                <property name="carName" value="自行车"></property>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="book001" class="com.bean.Book">
+        <property name="bookName" value="东游记"></property>
+
+    </bean>
+    <bean id="person02" class="com.bean.Person">
+        <property name="lastName" >
+            <!--进行复杂的赋值-->
+            <null></null>
+        </property>
+        <property name="books">
+            <list>
+                <bean id="book000x" class="com.bean.Book">
+                    <property name="bookName" value="西游记"></property>
+                </bean>
+                <ref bean="book001"></ref>
+
+            </list>
+        </property>
+        <property name="map">
+            <map>
+                <entry key="key01" value="张三">
+                </entry>
+                <entry key="key02" value="张三">
+                </entry>
+                <entry key="key03" value-ref="book001">
+                </entry>
+            </map>
+        </property>
+        <property name="properties">
+            <props>
+                <prop key="username">root</prop>
+                <prop key="password">123456</prop>
+            </props>
+
+        </property>
+    </bean>
+
+    <bean id="person03" class="com.bean.Person">
+        <property name="map" ref="mymap"></property>
+    </bean>
+
+    <util:map id="mymap">
+        <entry key="key01" value="张三">
+        </entry>
+        <entry key="key02" value="张三">
+        </entry>
+        <entry key="key03" value-ref="book001">
+        </entry>
+    </util:map>
+
+    <bean id="airPlane01" class="com.factory.AirPlaneStaticFactory" factory-method="getAirplane">
+        <constructor-arg name="jzName" value="qby"></constructor-arg>
+    </bean>
+</beans>
