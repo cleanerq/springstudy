@@ -27,7 +27,7 @@ public class MyCalculatorTest extends TestCase {
 
         System.out.println("=========================");
 
-        bean.div(1,0);
+//        bean.div(1,0);
 //        System.out.println(bean);
 //        System.out.println(bean.getClass());
 

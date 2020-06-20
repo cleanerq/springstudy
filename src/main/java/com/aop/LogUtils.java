@@ -33,7 +33,7 @@ public class LogUtils {
         Object[] args = joinPoint.getArgs();
         Signature signature = joinPoint.getSignature();
         String name = signature.getName();
-        logger.info("logStart【{}】方法开始执行，用的参数列表【{}】", name, Arrays.asList(args));
+        logger.info(" logStart【{}】方法开始执行，用的参数列表【{}】", name, Arrays.asList(args));
     }
 
     @AfterReturning(value = "pointCut()", returning = "result")
@@ -41,7 +41,7 @@ public class LogUtils {
         Object[] args = joinPoint.getArgs();
         Signature signature = joinPoint.getSignature();
         String name = signature.getName();
-        logger.info("logReturn【{}】方法开始执行，用的参数列表【{}】, 返回结果:{}", name, Arrays.asList(args), result);
+        logger.info(" logReturn【{}】方法开始执行，用的参数列表【{}】, 返回结果:{}", name, Arrays.asList(args), result);
     }
 
     @AfterThrowing(value = "pointCut()", throwing = "runtimeException")
@@ -49,7 +49,7 @@ public class LogUtils {
         Object[] args = joinPoint.getArgs();
         Signature signature = joinPoint.getSignature();
         String name = signature.getName();
-        logger.info("logExcpetion【{}】方法开始执行，用的参数列表【{}】，异常信息【{}】", name, Arrays.asList(args), runtimeException.toString());
+        logger.info(" logExcpetion【{}】方法开始执行，用的参数列表【{}】，异常信息【{}】", name, Arrays.asList(args), runtimeException.toString());
     }
 
     @After("pointCut()")
@@ -57,26 +57,26 @@ public class LogUtils {
         Object[] args = joinPoint.getArgs();
         Signature signature = joinPoint.getSignature();
         String name = signature.getName();
-        logger.info("logEnd【{}】方法开始执行，用的参数列表【{}】", name, Arrays.asList(args));
+        logger.info(" logEnd【{}】方法开始执行，用的参数列表【{}】", name, Arrays.asList(args));
     }
 
     /**
      * 环绕通知
      */
-    @Around("pointCut()")
+//    @Around("pointCut()")
     public Object myAround(ProceedingJoinPoint pjp)  {
         // 就是 method.invoke
 
         Object proceed = null;
         try {
-            logger.info("环绕前置 方法开始");
+            logger.info(" 环绕前置 方法开始");
             proceed = pjp.proceed(pjp.getArgs());
-            logger.info("环绕返回值 {}", proceed);
+            logger.info(" 环绕返回值 {}", proceed);
         } catch (Throwable throwable) {
             throwable.printStackTrace();
-            logger.info("环绕异常 {}", throwable.toString());
+            logger.info(" 环绕异常 {}", throwable.toString());
         } finally {
-            logger.info("环绕后置 方法结束");
+            logger.info(" 环绕后置 方法结束");
         }
 
 
