@@ -1,7 +1,10 @@
 package com.inter.impl;
 
 import com.inter.Calculator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import sun.rmi.runtime.Log;
 
 /**
  * @author qby
@@ -9,7 +12,10 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class MyCalculator implements Calculator {
+    Logger logger = LoggerFactory.getLogger(Calculator.class);
+
     public Integer add(int i, int j) {
+        logger.info("目标方法执行");
         return i + j;
     }
 
