@@ -31,7 +31,7 @@ public class BookDao extends BaseDao<Book> {
      * 减去某个用户的余额
      */
     public void updateBalance(String username, Double price) {
-        String sql = "UPDATE account set balance = balance - :price where username = :username";
+        String sql = "UPDATE account set balance = balance - ? where username = ?";
 
         jdbcTemplateB.update(sql, price, username);
     }
