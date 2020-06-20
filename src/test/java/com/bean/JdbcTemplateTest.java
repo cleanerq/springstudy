@@ -1,10 +1,12 @@
 package com.bean;
 
+import com.dao.EmployeeDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -30,6 +32,9 @@ public class JdbcTemplateTest {
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    @Autowired
+    private EmployeeDao employeeDao;
 
     @Test
     public void test01() throws SQLException {
@@ -102,6 +107,22 @@ public class JdbcTemplateTest {
 
     @Test
     public void test08() {
+        String sql = "INSERT tbl_user (username, salary, age) VALUES (:username,:salary,:age)";
+        Employee employee = new Employee();
+        employee.setUsername("张叔叔");
+        employee.setAge(7);
+        employee.setSalary(131.13);
+        BeanPropertySqlParameterSource beanPropertySqlParameterSource = new BeanPropertySqlParameterSource(employee);
+        int update = namedParameterJdbcTemplate.update(sql, beanPropertySqlParameterSource);
+        System.out.println(update);
+    }
 
+    @Test
+    public void test09() {
+        Employee employee = new Employee();
+        employee.setUsername("小星星");
+        employee.setSalary(222d);
+        employee.setAge(11);
+        employeeDao.saveEmployee(employee);
     }
 }
