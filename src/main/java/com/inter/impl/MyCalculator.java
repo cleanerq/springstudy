@@ -9,19 +9,19 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class MyCalculator implements Calculator {
-    public int add(int i, int j) {
+    public Integer add(int i, int j) {
         return i + j;
     }
 
-    public int sub(int i, int j) {
+    public Integer sub(int i, int j) {
         return i - j;
     }
 
-    public int mul(int i, int j) {
+    public Integer mul(int i, int j) {
         return i * j;
     }
 
-    public int div(int i, int j) {
+    public Integer div(int i, int j) {
         return i / j;
     }
 }

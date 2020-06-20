@@ -1,6 +1,7 @@
 package com.aop;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
@@ -23,7 +24,7 @@ public class LogUtils {
      * 1、本类引用
      * 2、其他的切面引用
      */
-    @Pointcut("execution(public int com.inter.impl.MyCalculator.*(..))")
+    @Pointcut("execution(public Integer com.inter.impl.MyCalculator.*(..))")
     public void pointCut() {
     }
 
@@ -57,5 +58,28 @@ public class LogUtils {
         Signature signature = joinPoint.getSignature();
         String name = signature.getName();
         logger.info("logEnd【{}】方法开始执行，用的参数列表【{}】", name, Arrays.asList(args));
+    }
+
+    /**
+     * 环绕通知
+     */
+    @Around("pointCut()")
+    public Object myAround(ProceedingJoinPoint pjp)  {
+        // 就是 method.invoke
+
+        Object proceed = null;
+        try {
+            logger.info("环绕前置 方法开始");
+            proceed = pjp.proceed(pjp.getArgs());
+            logger.info("环绕返回值 {}", proceed);
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+            logger.info("环绕异常 {}", throwable.toString());
+        } finally {
+            logger.info("环绕后置 方法结束");
+        }
+
+
+        return proceed;
     }
 }
