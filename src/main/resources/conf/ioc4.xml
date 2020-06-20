@@ -16,6 +16,7 @@
         <aop:pointcut id="pointCut" expression="execution(public * com.inter.impl.MyCalculatorXml.*(..))"/>
         <!-- 指定切面 -->
         <aop:aspect ref="logUtilsXML">
+            <aop:around method="myAround" pointcut-ref="pointCut"></aop:around>
             <aop:before method="logStart" pointcut-ref="pointCut"></aop:before>
             <aop:after method="logEnd" pointcut-ref="pointCut"></aop:after>
             <aop:after-returning method="logReturn" pointcut-ref="pointCut" returning="result"></aop:after-returning>
@@ -27,7 +28,6 @@
             <aop:after-returning method="logReturn" pointcut-ref="pointCut" returning="result"></aop:after-returning>
             <aop:after-throwing method="logExcpetion" pointcut-ref="pointCut" throwing="runtimeException"></aop:after-throwing>
         </aop:aspect>
-
     </aop:config>
 
 
