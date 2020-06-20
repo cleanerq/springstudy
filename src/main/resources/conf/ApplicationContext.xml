@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <context:component-scan base-package="com.dao, com.service, com.bean"></context:component-scan>
     <context:property-placeholder location="classpath:/conf/dbconfig.properties"></context:property-placeholder>
@@ -45,4 +45,12 @@
     <bean id="namedParameterJdbcTemplateB" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
         <constructor-arg name="dataSource" ref="dataSourceB"></constructor-arg>
     </bean>
+
+
+    <bean id="dataSourceTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!--        控制数据源-->
+        <constructor-arg name="dataSource" ref="dataSourceB"></constructor-arg>
+    </bean>
+    <!--    开启基于注解的事物控制模式-->
+    <tx:annotation-driven transaction-manager="dataSourceTransactionManager"></tx:annotation-driven>
 </beans>
