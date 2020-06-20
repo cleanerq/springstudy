@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--    1、将目标类和切面类都加入到IOC容器中，@Component;-->
+    <!--    2、告诉Spring哪个是切面类，@Aspect-->
+    <!--    3、在切面类中使用五个通知注解，来配置切面中的这些通知方法都何时的运行-->
+    <!--    4、开启基于注解的AOP功能-->
+
+    <bean id="myCalculatorXml" class="com.inter.impl.MyCalculatorXml"></bean>
+    <bean id="logUtilsXML" class="com.aop.LogUtilsXML"></bean>
+    <bean id="validateAspectXml" class="com.aop.ValidateAspectXml"></bean>
+
+    <aop:config>
+        <aop:pointcut id="pointCut" expression="execution(public * com.inter.impl.MyCalculatorXml.*(..))"/>
+        <!-- 指定切面 -->
+        <aop:aspect ref="logUtilsXML">
+            <aop:before method="logStart" pointcut-ref="pointCut"></aop:before>
+            <aop:after method="logEnd" pointcut-ref="pointCut"></aop:after>
+            <aop:after-returning method="logReturn" pointcut-ref="pointCut" returning="result"></aop:after-returning>
+            <aop:after-throwing method="logExcpetion" pointcut-ref="pointCut" throwing="runtimeException"></aop:after-throwing>
+        </aop:aspect>
+        <aop:aspect ref="validateAspectXml">
+            <aop:before method="logStart" pointcut-ref="pointCut"></aop:before>
+            <aop:after method="logEnd" pointcut-ref="pointCut"></aop:after>
+            <aop:after-returning method="logReturn" pointcut-ref="pointCut" returning="result"></aop:after-returning>
+            <aop:after-throwing method="logExcpetion" pointcut-ref="pointCut" throwing="runtimeException"></aop:after-throwing>
+        </aop:aspect>
+
+    </aop:config>
+
+
+</beans>
