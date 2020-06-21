@@ -32,8 +32,8 @@ public class BookService extends BaseService<Book> {
      * @param username
      * @param isbn
      */
-    @Transactional(propagation = Propagation.REQUIRED)
-    public void checkout(String username, String isbn) throws FileNotFoundException {
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void checkout(String username, String isbn) {
         // 减库存
         bookDao.updateStock(isbn);
         try {
@@ -47,7 +47,7 @@ public class BookService extends BaseService<Book> {
         bookDao.updateBalance(username, price);
 
 //        int i = 1/0;
-        FileInputStream fileInputStream = new FileInputStream("d://dddddh.txt");
+//        FileInputStream fileInputStream = new FileInputStream("d://dddddh.txt");
 
         logger.info("结账完成！！！");
     }
@@ -57,8 +57,9 @@ public class BookService extends BaseService<Book> {
         return bookDao.getPrice(isbn);
     }
 
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRED)
     public void updatePrice(String isbn, Double price) {
         bookDao.updatePrice(isbn, price);
+        int i = 10 / 0;
     }
 }
