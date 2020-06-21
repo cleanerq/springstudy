@@ -14,7 +14,7 @@ public class IOCTest2 {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     private ApplicationContext applicationContext =
-            new ClassPathXmlApplicationContext("conf/ioc2.xml");
+            new ClassPathXmlApplicationContext("/conf/ioc2.xml");
 
     /**
      * 默认都是null
