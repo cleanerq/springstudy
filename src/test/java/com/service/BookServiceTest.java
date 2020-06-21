@@ -8,6 +8,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.swing.*;
+import java.io.FileNotFoundException;
 
 /**
  * @author qby
@@ -20,8 +21,14 @@ public class BookServiceTest extends TestCase {
     private BookService bookService;
 
     @Test
-    public void test01() {
-        bookService.checkout("jack", "1");
+    public void test01() throws FileNotFoundException {
+//        bookService.checkout("jack", "1");
+
+//        Double price = bookService.getPrice("1");
+//        System.out.println("读取到的数据：" + price);
+
+        System.out.println(bookService.getClass());
     }
+
 
 }

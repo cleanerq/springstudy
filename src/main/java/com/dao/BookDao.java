@@ -56,4 +56,9 @@ public class BookDao extends BaseDao<Book> {
         jdbcTemplateB.update(sql, isbn);
 
     }
+
+    public void updatePrice(String isbn, Double price) {
+        String sql = "UPDATE book set price = ? where isbn = ?";
+        jdbcTemplateB.update(sql, price, isbn);
+    }
 }
