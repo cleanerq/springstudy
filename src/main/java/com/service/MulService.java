@@ -21,5 +21,7 @@ public class MulService {
         // 传播行为来设置这个事务方法和之前的大事务共享一个事务（使用同一条连接）
         // REQUIRED 抛出异常
         bookService.updatePrice("1", 998d);
+
+        int i = 10 / 0;
     }
 }

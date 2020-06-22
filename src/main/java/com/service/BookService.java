@@ -57,9 +57,9 @@ public class BookService extends BaseService<Book> {
         return bookDao.getPrice(isbn);
     }
 
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void updatePrice(String isbn, Double price) {
         bookDao.updatePrice(isbn, price);
-        int i = 10 / 0;
+
     }
 }
