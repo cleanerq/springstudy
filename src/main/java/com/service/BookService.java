@@ -24,6 +24,12 @@ public class BookService extends BaseService<Book> {
     @Autowired
     private BookDao bookDao;
 
+
+    @Transactional(readOnly = true, isolation = Isolation.READ_UNCOMMITTED)
+    public Double getPrice(String isbn) {
+        return bookDao.getPrice(isbn);
+    }
+
     /**
      *
      * 事物细节
@@ -46,20 +52,23 @@ public class BookService extends BaseService<Book> {
         // 减余额
         bookDao.updateBalance(username, price);
 
-//        int i = 1/0;
-//        FileInputStream fileInputStream = new FileInputStream("d://dddddh.txt");
-
         logger.info("结账完成！！！");
-    }
-
-    @Transactional(readOnly = true, isolation = Isolation.READ_UNCOMMITTED)
-    public Double getPrice(String isbn) {
-        return bookDao.getPrice(isbn);
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void updatePrice(String isbn, Double price) {
         bookDao.updatePrice(isbn, price);
 
+    }
+
+    /**
+     * 本类事务方法之间的调用就只是一个事务，不管本类的事务方法是否加上 REQUIRES_NEW
+     *
+     */
+    @Transactional
+    public void mulTx() {
+        checkout("jack", "1");
+        updatePrice("1", 998d);
+        int i = 10/0;
     }
 }

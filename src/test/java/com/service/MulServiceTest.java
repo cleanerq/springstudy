@@ -22,6 +22,9 @@ public class MulServiceTest extends TestCase {
 
     @Test
     public void test01() {
-        mulService.mulTx();
+//        mulService.mulTx();
+
+        // 效果都没改 虽然里面两个方法都是 require_new
+        bookService.mulTx();
     }
 }
